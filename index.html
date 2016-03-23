@@ -17,6 +17,7 @@
 <div id="map"></div>
 
 Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked /><br />
+<button onclick="resetZoom();">Reset zoom</button>
 
 
 <script>
@@ -34,6 +35,12 @@ var bubble_map = new Datamap({
         defaultFill: '#ABDDA4',
         Attacker: 'red',
         Defender: 'blue'
+    },
+    done: function(datamap) {
+        datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
+        function redraw() {
+            datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        };
     }
 });
 var bubblesShow = true;
@@ -88,6 +95,10 @@ var map_bubbles = function(dataSet) {
 
     });
 
+};
+
+var resetZoom = function () {
+    bubble_map.svg.selectAll("g").attr("transform", "translate(0,0)scale(1.0)");
 };
 
 bubble_map.bubbles(bubbles, {
