@@ -27,11 +27,15 @@ var margin = {top: 50, right: 50, bottom: 50, left: 50},
     width = 960 - margin.left - margin.right,
     height = 660 - margin.top - margin.bottom;
 
-var bubble_map, dataset;
+var bubble_map, dataset, battles;
 
 d3.json("./data.json", function(err, data) {
     dataset = data;
-    build_map();
+    d3.json("./battles.json", function(err, data2) {
+        if(err) console.log(err);
+        battles = data2;
+        build_map();
+    })
 });
 
 var build_map = function() {
@@ -75,13 +79,13 @@ var build_map = function() {
             };
         }
     });
-    bubble_map.bubbles(bubbles, {
+    bubble_map.bubbles(battle_map(), {
       popupTemplate: bubble_popup
     });
 };
 var bubblesShow = true;
 var bubble_popup = function(geo, data) {
-  return '<div class="hoverinfo">Yield:' + data.yeild + 'Exploded on ' + data.date + ' by the '  + data.country + '';
+  return '<div class="hoverinfo">Name:' + data.obj.name + ' Start Date ' + data.obj.start_date + ' by the '  + data.country + '';
 };
 var bubbles = [
   // {
@@ -115,6 +119,18 @@ var bubbles = [
   //   longitude: 54.5854
   // }
 ];
+
+var battle_map = function() {
+    return battles.map(function(b) {
+        return {
+            radius: b.casualities/80000,
+            fillKey:'Attacker',
+            latitude: b.location.latitude,
+            longitude: b.location.longitude,
+            obj: b
+         }
+    })
+}
 
 var toggleBubbles = function() {
     if(bubblesShow) {
