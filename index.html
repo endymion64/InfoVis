@@ -108,15 +108,24 @@ var bubble_popup = function(geo, data) {
 };
 var bubbles = [];
 var battle_map = function() {
-    bubbles = battles.map(function(b) {
-        return {
-            radius: b.casualities/80000,
-            fillKey:'Attacker',
-            latitude: b.location.latitude,
-            longitude: b.location.longitude,
-            obj: b
-         }
-    });
+    var my_date = function(d) {
+        var sp = d.split("-");
+        return new Date(sp[2], sp[1] - 1, sp[0]);
+    }
+    bubbles = battles.reduce(function(a, b) {
+        var sd = my_date(b.start_date),
+            ed = my_date(b.end_date);
+        if(ed < endingValue && sd > startingValue) {
+            a.push({
+                radius: b.casualities/80000,
+                fillKey:'Attacker',
+                latitude: b.location.latitude,
+                longitude: b.location.longitude,
+                obj: b
+            });
+        }
+        return a;
+    }, []);
     return bubbles;
 }
 
@@ -135,6 +144,10 @@ var resetZoom = function () {
 };
 
 
+var redrawBubbles = function() {
+    bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup });
+};
+
 
 
 //
@@ -149,7 +162,7 @@ var timeScale = d3.time.scale()
 // init values
 var sliderStartDate = timeScale(new Date('1940-11-3'));
 
-startingValue = new Date('1941-03-20');
+startingValue = new Date('1939-01-01');
 endingValue = new Date('1942-03-20');
 // brush
 var brush = d3.svg.brush()
@@ -157,7 +170,7 @@ var brush = d3.svg.brush()
   .extent([startingValue,endingValue])
   //.on("brushstart", brushstart)
   .on("brush", brushed)
-  //.on("brushend", brushend);
+  .on("brushend", redrawBubbles);
 
 // slider svg
 var sliderHeight = 100;
@@ -185,7 +198,6 @@ sliderSvg.append("g")
     .tickValues([timeScale.domain()[0], timeScale.domain()[1]]))
     .select(".domain")
     .select(function() {
-      console.log(this);
       return this.parentNode.appendChild(this.cloneNode(true));
     })
     .attr("class", "halo");
@@ -234,9 +246,11 @@ function brushed() {
 
   handleLeft.attr("transform", "translate(" + timeScale(value[0]) + ",0)");
   handleLeft.select('text').text(formatDate(value[0]));
+  startingValue = value[0];
 
   handleRight.attr("transform", "translate(" + timeScale(value[1]) + ",0)");
   handleRight.select('text').text(formatDate(value[1]));
+  endingValue = value[1];
 }
 
 </script>
