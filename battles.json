@@ -40,7 +40,7 @@
             "latitude": "49.333332"
         },
         "participants": {
-            "allied": ["United Kingdom", "United States", "France", "Poland", "Australia", "Belgium", "Norway", "Greece"],
+            "allied": ["UnitedKingdom", "UnitedStates", "France", "Poland", "Australia", "Belgium", "Norway", "Greece"],
             "axis": ["Germany"]
         },
         "result":"Allied win",

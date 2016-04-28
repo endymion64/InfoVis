@@ -73,7 +73,9 @@ var build_map = function() {
         fills: {
             defaultFill: '#ABDDA4',
             Attacker: 'red',
-            Defender: 'blue'
+            Defender: 'blue',
+            Axis:'purple',
+            Allied:'yellow'
         },
         done: function(datamap) {
             datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
@@ -88,8 +90,12 @@ var build_map = function() {
 };
 var bubblesShow = true;
 var bubble_popup = function(geo, data) {
+    bubble_map.updateChoropleth(null, {reset: true});
     var arr = [];
     data.obj.participants.axis.forEach(function(c) {
+        var obj = {};
+        obj[c] = {fillKey:'Axis'};
+        bubble_map.updateChoropleth(obj);
         arr.push({
             origin: data.obj.location,
             destination: c,
@@ -97,6 +103,9 @@ var bubble_popup = function(geo, data) {
         });
     });
     data.obj.participants.allied.forEach(function(c) {
+        var obj = {};
+        obj[c] = {fillKey:'Allied'};
+        bubble_map.updateChoropleth(obj);
         arr.push({
             origin: data.obj.location,
             destination: c,
