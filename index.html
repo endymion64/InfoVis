@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="utf-8">
+  <!-- Try to prevent caching -->
   <meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
   <title>WW2 Visualization</title>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
@@ -25,13 +26,14 @@ Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked /><br />
 
 <script>
 
-
+// Margins
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
     width = 960 - margin.left - margin.right,
     height = 660 - margin.top - margin.bottom;
 
-var bubble_map, dataset, battles; // Bubble map contains the map
+var bubble_map, dataset, battles; // Bubble map contains the map, dataset contains country data, battles contains battle data
 
+// Load data
 d3.json("./data.json", function(err, data) {
     dataset = data;
     d3.json("./battles.json?"+ Math.floor(Math.random() * 1000), function(err, data2) {
@@ -41,7 +43,9 @@ d3.json("./data.json", function(err, data) {
     })
 });
 
+// Function to initialize the map
 var build_map = function() {
+    // Load map with different settings
     bubble_map = new Datamap({
         height: height,
         width: width,
@@ -88,7 +92,9 @@ var build_map = function() {
       popupTemplate: bubble_popup
     });
 };
+// Toggle boolean for the bubbles
 var bubblesShow = true;
+//Function executed when a mouse hover over a bubble is done
 var bubble_popup = function(geo, data) {
     bubble_map.updateChoropleth(null, {reset: true});
     var arr = [];
@@ -115,7 +121,9 @@ var bubble_popup = function(geo, data) {
     bubble_map.arc(arr, {strokeWidth: 2, arcSharpness: 1.4});
     return '<div class="hoverinfo">Name:' + data.obj.name + ' Start Date ' + data.obj.start_date + ' by the '  + data.country + '';
 };
+// Global variable containing the bubbles
 var bubbles = [];
+// loads the bubbles within certain time frame
 var battle_map = function() {
     var my_date = function(d) {
         var sp = d.split("-");
@@ -138,6 +146,7 @@ var battle_map = function() {
     return bubbles;
 }
 
+// Function to toggle the buttons
 var toggleBubbles = function() {
     if(bubblesShow) {
         bubble_map.bubbles([]);
@@ -148,11 +157,12 @@ var toggleBubbles = function() {
     }
 };
 
+// Reset the zoom on the map
 var resetZoom = function () {
     bubble_map.svg.selectAll("g").attr("transform", "translate(0,0)scale(1.0)");
 };
 
-
+// Functions that triggers a redraw of the bubbles on the map
 var redrawBubbles = function() {
     bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup });
 };
