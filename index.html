@@ -30,7 +30,7 @@ var margin = {top: 50, right: 50, bottom: 50, left: 50},
     width = 960 - margin.left - margin.right,
     height = 660 - margin.top - margin.bottom;
 
-var bubble_map, dataset, battles;
+var bubble_map, dataset, battles; // Bubble map contains the map
 
 d3.json("./data.json", function(err, data) {
     dataset = data;
@@ -74,8 +74,8 @@ var build_map = function() {
             defaultFill: '#ABDDA4',
             Attacker: 'red',
             Defender: 'blue',
-            Axis:'purple',
-            Allied:'yellow'
+            Axis:'#FA5858',
+            Allied:'#5858FA'
         },
         done: function(datamap) {
             datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
