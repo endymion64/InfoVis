@@ -106,43 +106,9 @@ var bubble_popup = function(geo, data) {
     bubble_map.arc(arr, {strokeWidth: 2, arcSharpness: 1.4});
     return '<div class="hoverinfo">Name:' + data.obj.name + ' Start Date ' + data.obj.start_date + ' by the '  + data.country + '';
 };
-var bubbles = [
-  // {
-  //   name: 'Not a bomb, but centered on Brazil',
-  //   radius: 23,
-  //   centered: 'BEL',
-  //   country: 'USA',
-  //   yeild: 0,
-  //   fillKey: 'Attacker',
-  //   date: '1954-03-01'
-  // },
-  // {
-  //   name: 'Castle Bravo',
-  //   radius: 25,
-  //   yeild: 15000,
-  //   country: 'USA',
-  //   significance: 'First dry fusion fuel "staged" thermonuclear weapon; a serious nuclear fallout accident occurred',
-  //   fillKey: 'Attacker',
-  //   date: '1954-03-01',
-  //   latitude: 11.415,
-  //   longitude: 165.1619
-  // },{
-  //   name: 'Tsar Bomba',
-  //   radius: 70,
-  //   yeild: 50000,
-  //   country: 'USSR',
-  //   fillKey: 'Defender',
-  //   significance: 'Largest thermonuclear weapon ever tested—scaled down from its initial 100 Mt design by 50%',
-  //   date: '1961-10-31',
-  //   latitude: 73.482,
-  //   longitude: 54.5854
-  // }
-];
-
+var bubbles = [];
 var battle_map = function() {
-    console.log(battles);
-    return battles.map(function(b) {
-        console.log(b.name);
+    bubbles = battles.map(function(b) {
         return {
             radius: b.casualities/80000,
             fillKey:'Attacker',
@@ -150,7 +116,8 @@ var battle_map = function() {
             longitude: b.location.longitude,
             obj: b
          }
-    })
+    });
+    return bubbles;
 }
 
 var toggleBubbles = function() {
