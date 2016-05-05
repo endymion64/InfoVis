@@ -89,10 +89,7 @@ var build_map = function() {
                 datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             };
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                highlightStart = false;
-                redrawSlider();
-                bubble_map.updateChoropleth(null, {reset: true});
-                bubble_map.arc([]);
+                clear();
                 var obj = {};
                 obj[geography.id] = {fillKey:'highlight'};
                 bubble_map.updateChoropleth(obj);
@@ -171,11 +168,12 @@ var battle_map = function() {
 // Function to toggle the buttons
 var toggleBubbles = function() {
     if(bubblesShow) {
+        clear();
         bubble_map.bubbles([]);
         bubblesShow = false;
     } else {
-        bubble_map.bubbles(bubbles, {popupTemplate: bubble_popup_template });
         bubblesShow = true;
+        redrawBubbles();
     }
 };
 
@@ -186,13 +184,24 @@ var resetZoom = function () {
 
 // Functions that triggers a redraw of the bubbles on the map
 var redrawBubbles = function() {
-    if(bubble_map) {
+    if(bubble_map && bubblesShow) {
         bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup_template });
+        // Bug in datamaps "loses" the event handlers, so we have to reset them
+        bubble_map.svg.selectAll('.datamaps-bubble').on('click', function(data) {
+            bubble_popup(data);
+        });
     }
 };
 
+var clear = function() {
+    highlightStart = false;
+    redrawSlider();
+    bubble_map.updateChoropleth(null, {reset: true});
+    bubble_map.arc([]);
+};
 
 var focusMapElement = function(el) {
+
 
 };
 
