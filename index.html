@@ -54,7 +54,7 @@ var build_map = function() {
         geographyConfig: {
             dataUrl: './topotest.json?'+ Math.floor(Math.random() * 1000),
             popupOnHover: true,
-            highlightOnHover: true,
+            highlightOnHover: false,
             popupTemplate: function(geo, data) {
                 var n = geo.properties.name;
                 return '<div class="hoverinfo">'+
@@ -77,6 +77,7 @@ var build_map = function() {
         element: document.getElementById("map"),
         fills: {
             defaultFill: '#ABDDA4',
+            highlight:'#006400',
             Attacker: 'red',
             Defender: 'blue',
             Axis:'#FA5858',
@@ -87,16 +88,34 @@ var build_map = function() {
             function redraw() {
                 datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             };
+            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+                highlightStart = false;
+                redrawSlider();
+                bubble_map.updateChoropleth(null, {reset: true});
+                bubble_map.arc([]);
+                var obj = {};
+                obj[geography.id] = {fillKey:'highlight'};
+                bubble_map.updateChoropleth(obj);
+                focusMapElement(geography.id);
+            });
+
+            datamap.svg.selectAll('.datamaps-bubble').on('click', function(data) {
+                bubble_popup(data);
+            });
         }
     });
     bubble_map.bubbles(battle_map(), {
-      popupTemplate: bubble_popup
+      popupTemplate: bubble_popup_template
     });
 };
 // Toggle boolean for the bubbles
 var bubblesShow = true;
 //Function executed when a mouse hover over a bubble is done
-var bubble_popup = function(geo, data) {
+var bubble_popup_template = function(geo, data) {
+    return '<div class="hoverinfo">' + data.obj.name+'</div>';
+};
+
+var bubble_popup = function(data) {
     bubble_map.updateChoropleth(null, {reset: true});
     var arr = [];
     data.obj.participants.axis.forEach(function(c) {
@@ -123,7 +142,6 @@ var bubble_popup = function(geo, data) {
     highlightStart = my_date(data.obj.start_date);
     highlightEnd = my_date(data.obj.end_date);
     redrawSlider();
-    return '<div class="hoverinfo">Name:' + data.obj.name + ' Start Date ' + data.obj.start_date + ' by the '  + data.country + '';
 };
 // Global variable containing the bubbles
 var bubbles = [];
@@ -156,7 +174,7 @@ var toggleBubbles = function() {
         bubble_map.bubbles([]);
         bubblesShow = false;
     } else {
-        bubble_map.bubbles(bubbles, {popupTemplate: bubble_popup });
+        bubble_map.bubbles(bubbles, {popupTemplate: bubble_popup_template });
         bubblesShow = true;
     }
 };
@@ -169,11 +187,14 @@ var resetZoom = function () {
 // Functions that triggers a redraw of the bubbles on the map
 var redrawBubbles = function() {
     if(bubble_map) {
-        bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup });
+        bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup_template });
     }
 };
 
 
+var focusMapElement = function(el) {
+
+};
 
 // init values
 var dst = new Date('1938-12-31'),
