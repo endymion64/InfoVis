@@ -148,12 +148,13 @@ var my_date = function(d) {
     return new Date(sp[2], sp[1] - 1, sp[0]);
 }
 var battle_map = function() {
+    var scale = d3.scale.pow().exponent(0.5).domain([0, 4000000]).range([3,50]);
     bubbles = battles.reduce(function(a, b) {
         var sd = my_date(b.start_date),
             ed = my_date(b.end_date);
         if(ed < endingValue && sd > startingValue) {
             a.push({
-                radius: b.casualities/80000,
+                radius: scale(b.casualities), ///80000,
                 fillKey:'Attacker',
                 latitude: b.location.latitude,
                 longitude: b.location.longitude,
