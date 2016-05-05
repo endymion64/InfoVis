@@ -1,31 +1,39 @@
-.axis {
-  fill: gray;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+
+.axis text {
+  font: 11px sans-serif;
 }
 
-.axis .halo {
-  stroke: gray;
-  stroke-width: 4px;
-  stroke-linecap: round;
+.axis path {
+  display: none;
 }
 
-.slider .handle path {
-  stroke: blue;
-  stroke-width: 3px;
-  stroke-linecap: round;
-  pointer-events: none;
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
-.slider .handle text {
-  fill: gray;
-  text-align: center;
-  font-size: 18px;
+.grid-background {
+  fill: #ddd;
 }
 
-.slider .extent {
-  fill: blue;
+.grid-background-highlight {
+  fill: #f00;
+}
+
+.grid line,
+.grid path {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.grid .minor.tick line {
+  stroke-opacity: .5;
+}
+
+.brush .extent {
+  stroke: #000;
   fill-opacity: .125;
   shape-rendering: crispEdges;
 }

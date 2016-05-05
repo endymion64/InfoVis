@@ -20,9 +20,10 @@
 
 <div id="map"></div>
 
-Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked /><br />
+Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked />
 <button onclick="resetZoom();">Reset zoom</button>
 
+<div id="slider"></div>
 
 <script>
 
@@ -119,16 +120,19 @@ var bubble_popup = function(geo, data) {
         });
     });
     bubble_map.arc(arr, {strokeWidth: 2, arcSharpness: 1.4});
+    highlightStart = my_date(data.obj.start_date);
+    highlightEnd = my_date(data.obj.end_date);
+    redrawSlider();
     return '<div class="hoverinfo">Name:' + data.obj.name + ' Start Date ' + data.obj.start_date + ' by the '  + data.country + '';
 };
 // Global variable containing the bubbles
 var bubbles = [];
 // loads the bubbles within certain time frame
+var my_date = function(d) {
+    var sp = d.split("-");
+    return new Date(sp[2], sp[1] - 1, sp[0]);
+}
 var battle_map = function() {
-    var my_date = function(d) {
-        var sp = d.split("-");
-        return new Date(sp[2], sp[1] - 1, sp[0]);
-    }
     bubbles = battles.reduce(function(a, b) {
         var sd = my_date(b.start_date),
             ed = my_date(b.end_date);
@@ -164,113 +168,124 @@ var resetZoom = function () {
 
 // Functions that triggers a redraw of the bubbles on the map
 var redrawBubbles = function() {
-    bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup });
+    if(bubble_map) {
+        bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup });
+    }
 };
 
 
 
-//
-formatDate = d3.time.format("%b %d %Y");
+// init values
+var dst = new Date('1938-12-31'),
+    den = new Date('1946-01-01'),
+    startingValue = new Date(1940, 1, 1),
+    endingValue = new Date(1945, 1, 1),
+    highlightStart = false,
+    highlightEnd;
+
+
+var smargin = {top: 10, right: 40, bottom: 200, left: 10},
+    swidth = 960 - smargin.left - smargin.right,
+    sheight = 300 - smargin.top - smargin.bottom;
 
 // Time scale funtion
-var timeScale = d3.time.scale()
-  .domain([new Date('1939-01-01'),new Date('1945-12-31')])
-  .range([0,width])
-  .clamp(true);
+var x = d3.time.scale()
+    .domain([dst, den - 1])
+    .range([0, swidth]);
 
-// init values
-var sliderStartDate = timeScale(new Date('1940-11-3'));
+var brushended = function () {
+    if (!d3.event.sourceEvent) return; // only transition after input
+    var extent0 = brush.extent(),
+      extent1 = extent0.map(d3.time.month.round);
 
-startingValue = new Date('1939-01-01');
-endingValue = new Date('1942-03-20');
-// brush
-var brush = d3.svg.brush()
-  .x(timeScale)
-  .extent([startingValue,endingValue])
-  //.on("brushstart", brushstart)
-  .on("brush", brushed)
-  .on("brushend", redrawBubbles);
 
-// slider svg
-var sliderHeight = 100;
+    // if empty when rounded, use floor & ceil instead
+    if (extent1[0] >= extent1[1]) {
+        extent1[0] = d3.time.month.floor(extent0[0]);
+        extent1[1] = d3.time.month.ceil(extent0[1]);
+    }
 
-var sliderSvg = d3.select("body").append("svg")
-  .attr("width", width + margin.left + margin.right )
-  .attr("height", sliderHeight + margin.top + margin.bottom)
-  .append("g")
-  // classic transform to position g
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    startingValue = extent1[0];
+    endingValue = extent1[1];
 
-sliderSvg.append("g")
-  .attr("class", "x axis")
-  // put in middle of screen
-  .attr("transform", "translate(0," + sliderHeight / 2 + ")")
-  // inroduce axis
-  .call(d3.svg.axis()
-    .scale(timeScale)
-    .orient("bottom")
-    .tickFormat(function(d) {
-      return formatDate(d);
-    })
-    .tickSize(0)
-    .tickPadding(12)
-    .tickValues([timeScale.domain()[0], timeScale.domain()[1]]))
-    .select(".domain")
-    .select(function() {
-      return this.parentNode.appendChild(this.cloneNode(true));
-    })
-    .attr("class", "halo");
+    d3.select(this).transition()
+      .call(brush.extent(extent1))
+      .call(brush.event);
 
-var slider = sliderSvg.append("g")
-  .attr("class", "slider")
-  .call(brush);
-
-slider.select(".background")
-  .attr("height", sliderHeight);
-
-slider.selectAll(".resize")
-  .append("path")
-  .attr("d", "M 0 -20 V 20")
-
-slider.selectAll("rect")
-    .attr("height", sliderHeight);
-
-var handleLeft = slider.append("g")
-  .attr("class", "handle")
-
-handleLeft.append("path")
-  .attr("transform", "translate(0," + sliderHeight / 2 + ")")
-  .attr("d", "M 0 -20 V 20")
-
-handleLeft.append('text')
-  .text(startingValue)
-  .attr("transform", "translate(" + (-18) + " ," + (sliderHeight / 2 - 25) + ")");
-
-var handleRight = slider.append("g")
-  .attr("class", "handle")
-
-handleRight.append("path")
-  .attr("transform", "translate(0," + sliderHeight / 2 + ")")
-  .attr("d", "M 0 -20 V 20")
-
-handleRight.append('text')
-  .text(endingValue)
-  .attr("transform", "translate(" + (-18) + " ," + (sliderHeight / 2 - 25) + ")");
-
-slider
-  .call(brush.event)
-
-function brushed() {
-  var value = brush.extent();
-
-  handleLeft.attr("transform", "translate(" + timeScale(value[0]) + ",0)");
-  handleLeft.select('text').text(formatDate(value[0]));
-  startingValue = value[0];
-
-  handleRight.attr("transform", "translate(" + timeScale(value[1]) + ",0)");
-  handleRight.select('text').text(formatDate(value[1]));
-  endingValue = value[1];
+    redrawBubbles();
 }
+
+var brush = d3.svg.brush()
+    .x(x)
+    .extent([startingValue, endingValue])
+    .on("brushend", brushended);
+
+var redrawSlider = function() {
+
+
+    var div = d3.select("#slider");
+    div.html('');
+    var svg = div.append("svg")
+        .attr("width", swidth + smargin.left + smargin.right)
+        .attr("height", sheight + smargin.top + smargin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + smargin.left + "," + smargin.top + ")");
+
+    svg.append("rect")
+        .attr("class", "grid-background")
+        .attr("width", swidth)
+        .attr("height", sheight);
+
+    if(highlightStart) {
+        var startx = x(highlightStart),
+            endx = x(highlightEnd),
+            width = endx-startx;
+        console.log(width);
+        svg.append("rect")
+            .attr("class", "grid-background-highlight")
+            .attr("x", startx)
+            .attr("width", width)
+            .attr("height", sheight);
+    }
+
+    svg.append("g")
+        .attr("class", "x grid")
+        .attr("transform", "translate(0," + sheight + ")")
+        .call(d3.svg.axis()
+            .scale(x)
+            .orient("bottom")
+            .ticks(d3.time.months)
+            .tickSize(-sheight)
+            .tickFormat(""))
+      .selectAll(".tick")
+        .classed("minor", function(d) { return d.getHours(); });
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + sheight + ")")
+        .call(d3.svg.axis()
+          .scale(x)
+          .orient("bottom")
+          .ticks(d3.time.years)
+          .tickPadding(0))
+      .selectAll("text")
+        .attr("x", -10)
+        .attr("y", 10)
+        .style("text-anchor", null);
+
+    var gBrush = svg.append("g")
+        .attr("class", "brush")
+        .call(brush)
+        .call(brush.event);
+
+    gBrush.selectAll("rect")
+        .attr("height", sheight);
+};
+
+
+
+
+redrawSlider();
 
 </script>
 </body>
