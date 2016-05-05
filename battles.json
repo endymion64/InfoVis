@@ -44,8 +44,120 @@
             "axis": ["Germany"]
         },
         "result":"Allied win",
-        "casualities": "240000",
+        "casualities": 240000,
         "link": "https://en.wikipedia.org/wiki/Invasion_of_Normandy"
+    },
+    {
+        "name": "Fall of France",
+        "start_date": "10-05-1940",
+        "end_date": "25-06-1940",
+        "location": {
+            "longitude":"2.0",
+            "latitude": "46.0"
+        },
+        "participants": {
+            "allied": ["France","Belgium","UnitedKingdom","Canada","Netherlands","Luxembourg","Poland","Czechoslovakia"],
+            "axis": ["Germany","Italy"]
+        },
+        "result":"German victory",
+        "casualities": 523676,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_France"
+    },
+    {
+        "name": "Battle of Belgium",
+        "start_date": "10-05-1940",
+        "end_date": "28-05-1940",
+        "location": {
+            "longitude":"4.0",
+            "latitude": "50.833333"
+        },
+        "participants": {
+            "allied": ["Belgium","France","UnitedKingdom","Netherlands"],
+            "axis": ["Germany"]
+        },
+        "result":"German victory",
+        "casualities": 222443,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Belgium"
+    },
+    {
+        "name": "Battle of the Netherlands",
+        "start_date": "10-05-1940",
+        "end_date": "17-05-1940",
+        "location": {
+            "longitude":"4.916666",
+            "latitude": "52.383333"
+        },
+        "participants": {
+            "allied": ["Netherlands","France","UnitedKingdom"],
+            "axis": ["Germany"]
+        },
+        "result":"German victory",
+        "casualities": 6898,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_the_Netherlands"
+    },
+    {
+        "name": "Guadalcanal Campaign",
+        "start_date": "07-08-1942",
+        "end_date": "09-02-1943",
+        "location": {
+            "longitude":"160.183300",
+            "latitude": "-9.616700"
+        },
+        "participants": {
+            "allied": ["UnitedStates","Australia","NewZealand","UnitedKingdom"],
+            "axis": ["Japan"]
+        },
+        "result":"Strategic allied victory",
+        "casualities": 26300,
+        "link": "https://en.wikipedia.org/wiki/Guadalcanal_Campaign"
+    },
+    {
+        "name": "Battle of Leyte Gulf",
+        "start_date": "23-10-1944",
+        "end_date": "26-10-1944",
+        "location": {
+            "longitude":"125.416700",
+            "latitude": "10.833333"
+        },
+        "participants": {
+            "allied": ["UnitedStates","Australia"],
+            "axis": ["Japan"]
+        },
+        "result":"Decisive Allied victory",
+        "casualities": 15500,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Leyte_Gulf"
+    },
+    {
+        "name": "",
+        "start_date": "",
+        "end_date": "",
+        "location": {
+            "longitude":"",
+            "latitude": ""
+        },
+        "participants": {
+            "allied": [],
+            "axis": []
+        },
+        "result":"",
+        "casualities": "",
+        "link": ""
+    },
+    {
+        "name": "",
+        "start_date": "",
+        "end_date": "",
+        "location": {
+            "longitude":"",
+            "latitude": ""
+        },
+        "participants": {
+            "allied": [],
+            "axis": []
+        },
+        "result":"",
+        "casualities": "",
+        "link": ""
     },
     {
         "name": "",
