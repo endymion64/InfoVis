@@ -17,22 +17,37 @@
   <link rel="stylesheet" href="slider.css">
   <link rel="stylesheet" href="c3.min.css">
   <style>
-  #info {
-      width:860px;
+  #content{
+      margin:auto;
+      max-width: 860px;
   }
+
+  #map {
+      position: relative;
+      top: 0%;
+      bottom: 0%;
+      left: 0%;
+      right: 0%;
+  }
+
   </style>
 </head>
 
 <body>
+<div id="content">
 
+<center><h1>World War 2 Visualization</h1></center>
 <div id="map"></div>
-
-Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked />
-<button onclick="resetZoom();">Reset zoom</button>
+<div id="controls">
+<center>
+    Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked />
+    <button onclick="resetZoom();">Reset zoom</button>
+</center>
+</div>
 
 <div id="slider"></div>
 <div id="info"></div>
-
+</div>
 <script>
 
 // Margins
@@ -59,6 +74,7 @@ var build_map = function() {
         height: height,
         width: width,
         projection:"mercator",
+        responsive:true,
         geographyConfig: {
             dataUrl: './topotest.json?'+ Math.floor(Math.random() * 1000),
             popupOnHover: true,
@@ -96,6 +112,7 @@ var build_map = function() {
             function redraw() {
                 datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             };
+            datamap.resize(); // Fix wrong load on smaller screens
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 clear();
                 var obj = {};
@@ -113,6 +130,11 @@ var build_map = function() {
       popupTemplate: bubble_popup_template
     });
 };
+window.addEventListener('resize', function() {
+    bubble_map.resize();
+    redrawSlider();
+});
+
 // Toggle boolean for the bubbles
 var bubblesShow = true;
 //Function executed when a mouse hover over a bubble is done
@@ -255,43 +277,44 @@ var dst = new Date('1938-12-31'),
     highlightEnd;
 
 
-var smargin = {top: 10, right: 40, bottom: 35, left: 10},
-    swidth = 960 - smargin.left - smargin.right,
-    sheight = 100 - smargin.top - smargin.bottom;
 
-// Time scale funtion
-var x = d3.time.scale()
-    .domain([dst, den - 1])
-    .range([0, swidth]);
-
-var brushended = function () {
-    if (!d3.event.sourceEvent) return; // only transition after input
-    var extent0 = brush.extent(),
-      extent1 = extent0.map(d3.time.month.round);
-
-
-    // if empty when rounded, use floor & ceil instead
-    if (extent1[0] >= extent1[1]) {
-        extent1[0] = d3.time.month.floor(extent0[0]);
-        extent1[1] = d3.time.month.ceil(extent0[1]);
-    }
-
-    startingValue = extent1[0];
-    endingValue = extent1[1];
-
-    d3.select(this).transition()
-      .call(brush.extent(extent1))
-      .call(brush.event);
-
-    redrawBubbles();
-}
-
-var brush = d3.svg.brush()
-    .x(x)
-    .extent([startingValue, endingValue])
-    .on("brushend", brushended);
 
 var redrawSlider = function() {
+    var smargin = {top: 10, right: 40, bottom: 35, left: 10},
+        swidth = (window.innerWidth > 960 ? 960 : window.innerWidth) - smargin.left - smargin.right,
+        sheight = 100 - smargin.top - smargin.bottom;
+
+    // Time scale funtion
+    var x = d3.time.scale()
+        .domain([dst, den - 1])
+        .range([0, swidth]);
+
+    var brushended = function () {
+        if (!d3.event.sourceEvent) return; // only transition after input
+        var extent0 = brush.extent(),
+          extent1 = extent0.map(d3.time.month.round);
+
+
+        // if empty when rounded, use floor & ceil instead
+        if (extent1[0] >= extent1[1]) {
+            extent1[0] = d3.time.month.floor(extent0[0]);
+            extent1[1] = d3.time.month.ceil(extent0[1]);
+        }
+
+        startingValue = extent1[0];
+        endingValue = extent1[1];
+
+        d3.select(this).transition()
+          .call(brush.extent(extent1))
+          .call(brush.event);
+
+        redrawBubbles();
+    }
+
+    var brush = d3.svg.brush()
+        .x(x)
+        .extent([startingValue, endingValue])
+        .on("brushend", brushended);
     var div = d3.select("#slider");
     div.html('');
     var svg = div.append("svg")
