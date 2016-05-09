@@ -325,7 +325,7 @@
         "end_date": "22-06-1945",
         "location": {
             "longitude":"128.0",
-            "latitude": "26.5",
+            "latitude": "26.5"
         },
         "participants": {
             "allied": ["UnitedStates","UnitedKingdom","Canada","NewZealand","Australia"],
