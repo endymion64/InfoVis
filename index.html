@@ -55,7 +55,7 @@
 </div>
 <script>
 
-// Margins
+// Margins for map
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
     width = 960 - margin.left - margin.right,
     height = 660 - margin.top - margin.bottom;
@@ -92,6 +92,7 @@ var build_map = function() {
                     '</div>';
             }
         },
+        // Center Europe
         setProjection: function(element, options) {
             var projection, path;
             projection = d3.geo.mercator()
@@ -102,7 +103,7 @@ var build_map = function() {
 
             return {path: path, projection: projection};
         },
-        scope: 'cshapes',
+        scope: 'cshapes', // To focus right elements in topojson
         element: document.getElementById("map"),
         fills: {
             defaultFill: '#ABDDA4',
@@ -131,10 +132,12 @@ var build_map = function() {
             });
         }
     });
-    bubble_map.bubbles(battle_map(), {
+    bubble_map.bubbles(get_bubbles(), {
       popupTemplate: bubble_popup_template
     });
 };
+
+// Needed to provide responsive redrawal
 window.addEventListener('resize', function() {
     bubble_map.resize();
     redrawSlider();
@@ -183,7 +186,8 @@ var my_date = function(d) {
     var sp = d.split("-");
     return new Date(sp[2], sp[1] - 1, sp[0]);
 }
-var battle_map = function() {
+// returns the bubbles
+var get_bubbles = function() {
     var scale = d3.scale.pow().exponent(0.5).domain([0, 4000000]).range([3,50]);
     bubbles = battles.reduce(function(a, b) {
         var sd = my_date(b.start_date),
@@ -222,7 +226,7 @@ var resetZoom = function () {
 // Functions that triggers a redraw of the bubbles on the map
 var redrawBubbles = function() {
     if(bubble_map && bubblesShow) {
-        bubble_map.bubbles(battle_map(), {popupTemplate: bubble_popup_template });
+        bubble_map.bubbles(get_bubbles(), {popupTemplate: bubble_popup_template });
         // Bug in datamaps "loses" the event handlers, so we have to reset them
         bubble_map.svg.selectAll('.datamaps-bubble').on('click', function(data) {
             bubble_popup(data);
@@ -230,6 +234,7 @@ var redrawBubbles = function() {
     }
 };
 
+// Clears current state of the application
 var clear = function() {
     highlightStart = false;
     redrawSlider();
@@ -237,15 +242,18 @@ var clear = function() {
     bubble_map.arc([]);
 };
 
+// Called if an element on the map is focussed,
+// will provide additional info in the info div
 var focusMapElement = function(type, el) {
     var func = function() {
         var dom = document.querySelector("#info");
         dom.innerHTML = '';
         if(type === "country") {
+            dom.innerHTML += "<h3>"+ el.id+"</h3><br><div id=subinfo></div>";
             var country = el.id,
                 data = dataset[country];
                 var chart = c3.generate({
-                    bindto: "#info",
+                    bindto: "#subinfo",
                     data: {
                         columns: [
                             ['Civilian casualities', data.civ_max],
@@ -273,7 +281,7 @@ var focusMapElement = function(type, el) {
 
 };
 
-// init values
+// init values for the slider
 var dst = new Date('1938-12-31'),
     den = new Date('1946-01-01'),
     startingValue = new Date(1940, 1, 1),
@@ -281,9 +289,9 @@ var dst = new Date('1938-12-31'),
     highlightStart = false,
     highlightEnd;
 
-
-
-
+// Redraws the whole slider
+// -> When bubble is selected to highlight years (because silly svg doesn't support z-index)
+// -> when window is resized
 var redrawSlider = function() {
     var smargin = {top: 10, right: 40, bottom: 35, left: 10},
         swidth = (window.innerWidth > 960 ? 960 : window.innerWidth) - smargin.left - smargin.right,
@@ -294,6 +302,7 @@ var redrawSlider = function() {
         .domain([dst, den - 1])
         .range([0, swidth]);
 
+    // Called when the interval is changed
     var brushended = function () {
         if (!d3.event.sourceEvent) return; // only transition after input
         var extent0 = brush.extent(),
@@ -322,6 +331,8 @@ var redrawSlider = function() {
         .on("brushend", brushended);
     var div = d3.select("#slider");
     div.html('');
+
+    // Draw different svg elements
     var svg = div.append("svg")
         .attr("width", swidth + smargin.left + smargin.right)
         .attr("height", sheight + smargin.top + smargin.bottom)
@@ -377,10 +388,6 @@ var redrawSlider = function() {
     gBrush.selectAll("rect")
         .attr("height", sheight);
 };
-
-
-
-
 redrawSlider();
 
 </script>
