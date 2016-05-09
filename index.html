@@ -11,9 +11,16 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="c3.min.js"></script>
   <script src="datamaps.world.min.js"></script> <!-- documentation https://github.com/markmarkoh/datamaps -->
   <!-- Slider stylesheet -->
   <link rel="stylesheet" href="slider.css">
+  <link rel="stylesheet" href="c3.min.css">
+  <style>
+  #info {
+      width:860px;
+  }
+  </style>
 </head>
 
 <body>
@@ -24,6 +31,7 @@ Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked />
 <button onclick="resetZoom();">Reset zoom</button>
 
 <div id="slider"></div>
+<div id="info"></div>
 
 <script>
 
@@ -93,7 +101,7 @@ var build_map = function() {
                 var obj = {};
                 obj[geography.id] = {fillKey:'highlight'};
                 bubble_map.updateChoropleth(obj);
-                focusMapElement(geography.id);
+                focusMapElement("country", geography);
             });
 
             datamap.svg.selectAll('.datamaps-bubble').on('click', function(data) {
@@ -113,6 +121,7 @@ var bubble_popup_template = function(geo, data) {
 };
 
 var bubble_popup = function(data) {
+    focusMapElement("battle", data.obj);
     bubble_map.updateChoropleth(null, {reset: true});
     var arr = [];
     data.obj.participants.axis.forEach(function(c) {
@@ -201,8 +210,39 @@ var clear = function() {
     bubble_map.arc([]);
 };
 
-var focusMapElement = function(el) {
+var focusMapElement = function(type, el) {
+    var func = function() {
+        var dom = document.querySelector("#info");
+        dom.innerHTML = '';
+        if(type === "country") {
+            var country = el.id,
+                data = dataset[country];
+                var chart = c3.generate({
+                    bindto: "#info",
+                    data: {
+                        columns: [
+                            ['Civilian casualities', data.civ_max],
+                            ['data2', 130]
+                        ],
+                        type: 'bar'
+                    },
+                    bar: {
+                        width: {
+                            ratio: 0.5 // this makes bar width 50% of length between ticks
+                        }
+                    }
+                });
+        } else {
+            var iframe = document.createElement('iframe');
+            iframe.src = el.link;
+            iframe.width = '100%';
+            iframe.height = 450;
+            iframe.style.border = 'none';
+            dom.appendChild(iframe);
+        }
+    };
 
+    setTimeout(func, 0); // Async
 
 };
 
@@ -215,9 +255,9 @@ var dst = new Date('1938-12-31'),
     highlightEnd;
 
 
-var smargin = {top: 10, right: 40, bottom: 200, left: 10},
+var smargin = {top: 10, right: 40, bottom: 35, left: 10},
     swidth = 960 - smargin.left - smargin.right,
-    sheight = 300 - smargin.top - smargin.bottom;
+    sheight = 100 - smargin.top - smargin.bottom;
 
 // Time scale funtion
 var x = d3.time.scale()
@@ -252,8 +292,6 @@ var brush = d3.svg.brush()
     .on("brushend", brushended);
 
 var redrawSlider = function() {
-
-
     var div = d3.select("#slider");
     div.html('');
     var svg = div.append("svg")
@@ -271,7 +309,6 @@ var redrawSlider = function() {
         var startx = x(highlightStart),
             endx = x(highlightEnd),
             width = endx-startx;
-        console.log(width);
         svg.append("rect")
             .attr("class", "grid-background-highlight")
             .attr("x", startx)

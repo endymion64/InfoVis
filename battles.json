@@ -128,52 +128,20 @@
         "link": "https://en.wikipedia.org/wiki/Battle_of_Leyte_Gulf"
     },
     {
-        "name": "Battle of Moscow",
-        "start_date": "02-10-1941",
-        "end_date": "07-01-1942",
+        "name": "",
+        "start_date": "",
+        "end_date": "",
         "location": {
-            "longitude":"36.96667",
-            "latitude": "55.7"
+            "longitude":"",
+            "latitude": ""
         },
         "participants": {
-            "allied": ["USSR"],
-            "axis": ["Germany"]
+            "allied": [],
+            "axis": []
         },
-        "result":"Strategic USSR victory",
-        "casualities": 1680000,
-        "link": "https://en.wikipedia.org/wiki/Battle_of_Moscow"
-    },
-    {
-        "name": "Battle of Kursk",
-        "start_date": "05-07-1943",
-        "end_date": "23-08-1943",
-        "location": {
-            "longitude":"36.183333",
-            "latitude": "51.716667"
-        },
-        "participants": {
-            "allied": ["USSR"],
-            "axis": ["Germany"]
-        },
-        "result":"Decisive USSR victory",
-        "casualities": 684499,
-        "link": "https://en.wikipedia.org/wiki/Battle_of_Kursk"
-    },
-    {
-        "name": "Battle of Midway",
-        "start_date": "04-06-1942",
-        "end_date": "07-06-1942",
-        "location": {
-            "longitude":"-177.21",
-            "latitude": "28.12"
-        },
-        "participants": {
-            "allied": ["UnitedStates"],
-            "axis": ["Japan"]
-        },
-        "result":"Decisive American victory",
-        "casualities": 6000,
-        "link": "https://en.wikipedia.org/wiki/Battle_of_Midway"
+        "result":"",
+        "casualities": "",
+        "link": ""
     },
     {
         "name": "",
