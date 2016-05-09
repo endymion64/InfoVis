@@ -16,10 +16,15 @@
   <!-- Slider stylesheet -->
   <link rel="stylesheet" href="slider.css">
   <link rel="stylesheet" href="c3.min.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
   <style>
   #content{
       margin:auto;
       max-width: 860px;
+  }
+
+  #controls {
+      margin-top:4px;
   }
 
   #map {
@@ -41,7 +46,7 @@
 <div id="controls">
 <center>
     Bubbles: <input type="checkbox" onchange="toggleBubbles();" checked />
-    <button onclick="resetZoom();">Reset zoom</button>
+    <button class="pure-button" onclick="resetZoom();">Reset zoom</button>
 </center>
 </div>
 

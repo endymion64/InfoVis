@@ -128,20 +128,20 @@
         "link": "https://en.wikipedia.org/wiki/Battle_of_Leyte_Gulf"
     },
     {
-        "name": "",
-        "start_date": "",
-        "end_date": "",
+        "name": "Battle of the Dnieper",
+        "start_date": "24-08-1943",
+        "end_date": "23-12-1943",
         "location": {
-            "longitude":"",
-            "latitude": ""
+            "longitude":"31.460270",
+            "latitude": "49.907049"
         },
         "participants": {
-            "allied": [],
-            "axis": []
+            "allied": ["USSR", "Czechoslovakia"],
+            "axis": ["Germany", "Romania"]
         },
-        "result":"",
-        "casualities": "",
-        "link": ""
+        "result":"USSR win",
+        "casualities": "2200000",
+        "link": "https://en.wikipedia.org/wiki/Battle_of_the_Dnieper"
     },
     {
         "name": "",
