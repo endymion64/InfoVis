@@ -140,24 +140,216 @@
             "axis": ["Germany", "Romania"]
         },
         "result":"USSR win",
-        "casualities": "2200000",
+        "casualities": 2200000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_the_Dnieper"
     },
     {
-        "name": "",
-        "start_date": "",
-        "end_date": "",
+        "name": "Battle of the River Plate",
+        "start_date": "13-12-1939",
+        "end_date": "13-12-1939",
         "location": {
-            "longitude":"",
-            "latitude": ""
+            "longitude":"-47.0",
+            "latitude": "-32.0"
         },
         "participants": {
-            "allied": [],
-            "axis": []
+            "allied": ["UnitedKingdom","NewZealand"],
+            "axis": ["Germany"]
         },
-        "result":"",
-        "casualities": "",
-        "link": ""
+        "result":"British victory",
+        "casualities": 108,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_the_River_Plate"
+    },
+    {
+        "name": "Battle of Monte Cassino",
+        "start_date": "17-01-1944",
+        "end_date": "18-05-1944",
+        "location": {
+            "longitude":"13.81667",
+            "latitude": "41.48333"
+        },
+        "participants": {
+            "allied": ["UnitedKingdom","UnitedStates","France","Poland","Canada","Australia","NewZealand","SouthAfrica"],
+            "axis": ["Germany","Italy"]
+        },
+        "result":"Allied victory",
+        "casualities": 185000,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Monte_Cassino"
+    },
+    {
+        "name": "Battle of the Bulge",
+        "start_date": "16-12-1944",
+        "end_date": "25-01-1945",
+        "location": {
+            "longitude":"5.716667",
+            "latitude": "50.0"
+        },
+        "participants": {
+            "allied": ["UnitedStates","UnitedKingdom","France","Canada","Belgium","Luxembourg"],
+            "axis": ["Germany"]
+        },
+        "result":"Allied victory",
+        "casualities": 186369,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_the_Bulge"
+    },
+    {
+        "name": "Battle of Kursk",
+        "start_date": "05-07-1943",
+        "end_date": "16-07-1943",
+        "location": {
+            "longitude":"36.183333",
+            "latitude": "51.716667"
+        },
+        "participants": {
+            "allied": ["USSR"],
+            "axis": ["Germany"]
+        },
+        "result":"Decisive Soviet victory",
+        "casualities": 388000,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Kursk"
+    },
+    {
+        "name": "Second Battle of Kharkov",
+        "start_date": "12-05-1942",
+        "end_date": "28-05-1942",
+        "location": {
+            "longitude":"36.216667",
+            "latitude": "50.0"
+        },
+        "participants": {
+            "allied": ["USSR"],
+            "axis": ["Germany","Romania","Italy"]
+        },
+        "result":"Axis victory",
+        "casualities": 300000,
+        "link": "https://en.wikipedia.org/wiki/Second_Battle_of_Kharkov"
+    },
+    {
+        "name": "Battle of Luzon",
+        "start_date": "09-01-1945",
+        "end_date": "15-08-1945",
+        "location": {
+            "longitude":"121.0",
+            "latitude": "16.0"
+        },
+        "participants": {
+            "allied": ["UnitedStates","Australia","Mexico"],
+            "axis": ["Japan"]
+        },
+        "result":"Decisive allied victory",
+        "casualities": 345300,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Luzon"
+    },
+    {
+        "name": "Battle of Narva",
+        "start_date": "02-02-1944",
+        "end_date": "10-08-1944",
+        "location": {
+            "longitude":"28.2",
+            "latitude": "59.38333"
+        },
+        "participants": {
+            "allied": ["USSR"],
+            "axis": ["Germany"]
+        },
+        "result":"German defensive victory",
+        "casualities": 550000,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Narva_(1944)"
+    },
+    {
+        "name": "Battle of Moscow",
+        "start_date": "02-10-1941",
+        "end_date": "07-01-1942",
+        "location": {
+            "longitude":"36.96667",
+            "latitude": "55.7"
+        },
+        "participants": {
+            "allied": ["USSR"],
+            "axis": ["Germany"]
+        },
+        "result":"Strategic Soviet victory",
+        "casualities": 1000000,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Moscow"
+    },
+    {
+        "name": "Battle of Berlin",
+        "start_date": "16-04-1945",
+        "end_date": "02-05-1945",
+        "location": {
+            "longitude":"13.38333",
+            "latitude": "52.5"
+        },
+        "participants": {
+            "allied": ["USSR","Poland"],
+            "axis": ["Germany"]
+        },
+        "result":"Decisive Soviet victory",
+        "casualities": 1298745,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Berlin"
+    },
+    {
+        "name": "Attack on Pearl Harbor",
+        "start_date": "07-12-1941",
+        "end_date": "07-12-1941",
+        "location": {
+            "longitude":"-157.9771",
+            "latitude": "21.3679"
+        },
+        "participants": {
+            "allied": ["UnitedStates"],
+            "axis": ["Japan"]
+        },
+        "result":"Japanese major tactical victory",
+        "casualities": 2467,
+        "link": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor"
+    },
+    {
+        "name": "Operation Torch",
+        "start_date": "08-11-1942",
+        "end_date": "16-11-1942",
+        "location": {
+            "longitude":"-2.029",
+            "latitude": "35.085"
+        },
+        "participants": {
+            "allied": ["UnitedStates","UnitedKingdom","France","Canada","Netherlands","Australia"],
+            "axis": ["Germany"]
+        },
+        "result":"Allied victory",
+        "casualities": 1846,
+        "link": "https://en.wikipedia.org/wiki/Operation_Torch"
+    },
+    {
+        "name": "Battle of Okinawa",
+        "start_date": "01-04-1945",
+        "end_date": "22-06-1945",
+        "location": {
+            "longitude":"128.0",
+            "latitude": "26.5",
+        },
+        "participants": {
+            "allied": ["UnitedStates","UnitedKingdom","Canada","NewZealand","Australia"],
+            "axis": ["Japan"]
+        },
+        "result":"Allied victory",
+        "casualities": 150000,
+        "link": "https://en.wikipedia.org/wiki/Battle_of_Okinawa"
+    },
+    {
+        "name": "Invasion of Poland",
+        "start_date": "01-09-1939",
+        "end_date": "06-10-1939",
+        "location": {
+            "longitude":"20.0",
+            "latitude": "52.0"
+        },
+        "participants": {
+            "allied": ["Poland"],
+            "axis": ["Germany","Czechoslovakia","USSR"]
+        },
+        "result":"Decisive German and Soviet victory",
+        "casualities": 258700,
+        "link": "https://en.wikipedia.org/wiki/Invasion_of_Poland"
     },
     {
         "name": "",
