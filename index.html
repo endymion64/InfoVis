@@ -346,6 +346,9 @@ var redrawSlider = function() {
         var startx = x(highlightStart),
             endx = x(highlightEnd),
             width = endx-startx;
+        if(width < 1) {
+            width = 1;
+        }
         svg.append("rect")
             .attr("class", "grid-background-highlight")
             .attr("x", startx)
