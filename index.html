@@ -85,10 +85,8 @@ var build_map = function() {
             popupOnHover: true,
             highlightOnHover: false,
             popupTemplate: function(geo, data) {
-                var n = geo.properties.name;
                 return '<div class="hoverinfo">'+
-                    '<strong>' + geo.properties.name +'</strong><br />'+
-                    'civ_max: ' + (dataset[n] ? dataset[n].civ_max : 'No Data')  +
+                    '<strong>' + geo.properties.name +'</strong>'+
                     '</div>';
             }
         },
@@ -147,7 +145,7 @@ window.addEventListener('resize', function() {
 var bubblesShow = true;
 //Function executed when a mouse hover over a bubble is done
 var bubble_popup_template = function(geo, data) {
-    return '<div class="hoverinfo">' + data.obj.name+'</div>';
+    return '<div class="hoverinfo"><strong>' + data.obj.name+'</strong></div>';
 };
 
 var bubble_popup = function(data) {
