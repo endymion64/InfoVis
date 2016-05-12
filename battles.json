@@ -300,7 +300,7 @@
             "axis": ["Japan"]
         },
         "result":"Japanese major tactical victory",
-        "casualities": 2467,
+        "casualities": 3748,
         "link": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor"
     },
     {
@@ -350,22 +350,6 @@
         "result":"Decisive German and Soviet victory",
         "casualities": 258700,
         "link": "https://en.wikipedia.org/wiki/Invasion_of_Poland"
-    },
-    {
-        "name": "Attack on Pearl Harbor",
-        "start_date": "07-12-1941",
-        "end_date": "07-12-1941",
-        "location": {
-            "longitude":"21.366667",
-            "latitude": "-157.95"
-        },
-        "participants": {
-            "allied": ["UnitedStates"],
-            "axis": ["Japan"]
-        },
-        "result":"Japanese major tactical victory",
-        "casualities": 3748,
-        "link": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor"
     },
     {
         "name": "",
