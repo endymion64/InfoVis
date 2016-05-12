@@ -12,6 +12,7 @@
             "axis": ["Germany", "Romania", "Italy", "Hungary", "Croatia"]
         },
         "result": "Soviet victory",
+        "victory": "Allied",
         "casualities": 1850000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Stalingrad"
     },
@@ -23,7 +24,8 @@
             "longitude":"30.319061",
             "latitude": "59.930248"
         },
-        "result": "soviet victory",
+        "result": "Soviet victory",
+        "victory": "Allied",
         "participants": {
             "allied": ["USSR"],
             "axis": ["Germany", "Finland", "Italy"]
@@ -44,6 +46,7 @@
             "axis": ["Germany"]
         },
         "result":"Allied win",
+        "victory": "Allied",
         "casualities": 240000,
         "link": "https://en.wikipedia.org/wiki/Invasion_of_Normandy"
     },
@@ -60,6 +63,7 @@
             "axis": ["Germany","Italy"]
         },
         "result":"German victory",
+        "victory": "Axis",
         "casualities": 523676,
         "link": "https://en.wikipedia.org/wiki/Battle_of_France"
     },
@@ -76,6 +80,7 @@
             "axis": ["Germany"]
         },
         "result":"German victory",
+        "victory": "Axis",
         "casualities": 222443,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Belgium"
     },
@@ -92,6 +97,7 @@
             "axis": ["Germany"]
         },
         "result":"German victory",
+        "victory": "Axis",
         "casualities": 6898,
         "link": "https://en.wikipedia.org/wiki/Battle_of_the_Netherlands"
     },
@@ -108,6 +114,7 @@
             "axis": ["Japan"]
         },
         "result":"Strategic allied victory",
+        "victory": "Allied",
         "casualities": 26300,
         "link": "https://en.wikipedia.org/wiki/Guadalcanal_Campaign"
     },
@@ -124,6 +131,7 @@
             "axis": ["Japan"]
         },
         "result":"Decisive Allied victory",
+        "victory": "Allied",
         "casualities": 15500,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Leyte_Gulf"
     },
@@ -140,6 +148,7 @@
             "axis": ["Germany", "Romania"]
         },
         "result":"USSR win",
+        "victory": "Allied",
         "casualities": 2200000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_the_Dnieper"
     },
@@ -156,6 +165,7 @@
             "axis": ["Germany"]
         },
         "result":"British victory",
+        "victory": "Allied",
         "casualities": 108,
         "link": "https://en.wikipedia.org/wiki/Battle_of_the_River_Plate"
     },
@@ -172,6 +182,7 @@
             "axis": ["Germany","Italy"]
         },
         "result":"Allied victory",
+        "victory": "Allied",
         "casualities": 185000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Monte_Cassino"
     },
@@ -188,6 +199,7 @@
             "axis": ["Germany"]
         },
         "result":"Allied victory",
+        "victory": "Allied",
         "casualities": 186369,
         "link": "https://en.wikipedia.org/wiki/Battle_of_the_Bulge"
     },
@@ -204,6 +216,7 @@
             "axis": ["Germany"]
         },
         "result":"Decisive Soviet victory",
+        "victory": "Allied",
         "casualities": 388000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Kursk"
     },
@@ -220,6 +233,7 @@
             "axis": ["Germany","Romania","Italy"]
         },
         "result":"Axis victory",
+        "victory": "Axis",
         "casualities": 300000,
         "link": "https://en.wikipedia.org/wiki/Second_Battle_of_Kharkov"
     },
@@ -236,6 +250,7 @@
             "axis": ["Japan"]
         },
         "result":"Decisive allied victory",
+        "victory": "Allied",
         "casualities": 345300,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Luzon"
     },
@@ -252,6 +267,7 @@
             "axis": ["Germany"]
         },
         "result":"German defensive victory",
+        "victory": "Axis",
         "casualities": 550000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Narva_(1944)"
     },
@@ -268,6 +284,7 @@
             "axis": ["Germany"]
         },
         "result":"Strategic Soviet victory",
+        "victory": "Allied",
         "casualities": 1000000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Moscow"
     },
@@ -284,6 +301,7 @@
             "axis": ["Germany"]
         },
         "result":"Decisive Soviet victory",
+        "victory": "Allied",
         "casualities": 1298745,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Berlin"
     },
@@ -300,6 +318,7 @@
             "axis": ["Japan"]
         },
         "result":"Japanese major tactical victory",
+        "victory": "Axis",
         "casualities": 3748,
         "link": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor"
     },
@@ -316,6 +335,7 @@
             "axis": ["Germany"]
         },
         "result":"Allied victory",
+        "victory": "Allied",
         "casualities": 1846,
         "link": "https://en.wikipedia.org/wiki/Operation_Torch"
     },
@@ -332,6 +352,7 @@
             "axis": ["Japan"]
         },
         "result":"Allied victory",
+        "victory": "Allied",
         "casualities": 150000,
         "link": "https://en.wikipedia.org/wiki/Battle_of_Okinawa"
     },
@@ -348,6 +369,7 @@
             "axis": ["Germany","Czechoslovakia","USSR"]
         },
         "result":"Decisive German and Soviet victory",
+        "victory": "Axis",
         "casualities": 258700,
         "link": "https://en.wikipedia.org/wiki/Invasion_of_Poland"
     },
