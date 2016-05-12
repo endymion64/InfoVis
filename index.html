@@ -192,8 +192,8 @@ var get_bubbles = function() {
             ed = my_date(b.end_date);
         if(ed < endingValue && sd > startingValue) {
             a.push({
-                radius: scale(b.casualities), ///80000,
-                fillKey:'Attacker',
+                radius: scale(b.casualities),
+                fillKey:(b.victory == "Axis" ? 'Attacker' : 'Defender'),
                 latitude: b.location.latitude,
                 longitude: b.location.longitude,
                 obj: b
@@ -254,14 +254,22 @@ var focusMapElement = function(type, el) {
                     bindto: "#subinfo",
                     data: {
                         columns: [
-                            ['Civilian casualities', data.civ_max],
-                            ['data2', 130]
+                            [country, data.civ_max, data.civ_min]
                         ],
                         type: 'bar'
                     },
-                    bar: {
-                        width: {
-                            ratio: 0.5 // this makes bar width 50% of length between ticks
+                    axis: {
+                        rotated:true,
+                        x : {
+                            tick: {
+                                format: function (x) {
+                                    if(x == 0) {
+                                        return 'Maximum civilian casualities';
+                                    } else if (x == 1) {
+                                        return 'Minimum civilian casualties';
+                                    }
+                                }
+                            }
                         }
                     }
                 });
