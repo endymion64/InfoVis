@@ -299,8 +299,8 @@ var dst = new Date('1938-12-31'),
 // -> When bubble is selected to highlight years (because silly svg doesn't support z-index)
 // -> when window is resized
 var redrawSlider = function() {
-    var smargin = {top: 10, right: 40, bottom: 35, left: 10},
-        swidth = (window.innerWidth > 960 ? 960 : window.innerWidth) - smargin.left - smargin.right,
+    var smargin = {top: 10, right: 10, bottom: 35, left: 10},
+        swidth = (window.innerWidth > 860 ? 860 : window.innerWidth) - smargin.left - smargin.right,
         sheight = 100 - smargin.top - smargin.bottom;
 
     // Time scale funtion
