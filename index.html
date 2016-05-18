@@ -255,24 +255,15 @@ var focusMapElement = function(type, el) {
                     bindto: "#subinfo",
                     data: {
                         columns: [
-                            [country, data.civ_ttl, data.mil_ttl]
+                            ["Estimated civilian casualties", data.civ_ttl],
+                            ["Estimated military casualties", data.mil_ttl]
                         ],
                         type: 'bar'
                     },
-                    legend: {hide: true},
+                    legend: {position: 'inset'},
                     axis: {
-                        rotated:true,
-                        x : {
-                            tick: {
-                                format: function (x) {
-                                    if(x == 0) {
-                                        return 'Estimated civilian casualties';
-                                    } else if (x == 1) {
-                                        return 'Estimated military casualties';
-                                    }
-                                }
-                            }
-                        }
+                        rotated: true,
+                        x: { tick: { format: function (x) {return ""; }} }
                     }
                 });
         } else {
