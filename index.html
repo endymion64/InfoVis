@@ -248,26 +248,27 @@ var focusMapElement = function(type, el) {
         var dom = document.querySelector("#info");
         dom.innerHTML = '';
         if(type === "country") {
-            dom.innerHTML += "<h3>"+ el.id+"</h3><br><div id=subinfo></div>";
+            dom.innerHTML += "<h3 style=\"text-align:center;\">"+ el.id+"</h3><br><div id=subinfo></div>";
             var country = el.id,
                 data = dataset[country];
                 var chart = c3.generate({
                     bindto: "#subinfo",
                     data: {
                         columns: [
-                            [country, data.civ_max, data.civ_min]
+                            [country, data.civ_ttl, data.mil_ttl]
                         ],
                         type: 'bar'
                     },
+                    legend: {hide: true},
                     axis: {
                         rotated:true,
                         x : {
                             tick: {
                                 format: function (x) {
                                     if(x == 0) {
-                                        return 'Maximum civilian casualities';
+                                        return 'Estimated civilian casualties';
                                     } else if (x == 1) {
-                                        return 'Minimum civilian casualties';
+                                        return 'Estimated military casualties';
                                     }
                                 }
                             }
@@ -275,6 +276,9 @@ var focusMapElement = function(type, el) {
                     }
                 });
         } else {
+    var range = el.start_date === el.end_date ? el.start_date : el.start_date + " - " + el.end_date;
+            dom.innerHTML += "<h3 style=\"text-align:center;\">"+ el.name+"</h3>";
+            dom.innerHTML += "<h4 style=\"text-align:center;\">"+range+"<br>"+el.casualties+" casualties</h4>";
             var iframe = document.createElement('iframe');
             iframe.src = el.link;
             iframe.width = '100%';
