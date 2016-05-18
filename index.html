@@ -193,7 +193,7 @@ var get_bubbles = function() {
             ed = my_date(b.end_date);
         if(ed < endingValue && sd > startingValue) {
             a.push({
-                radius: scale(b.casualities),
+                radius: scale(b.casualties),
                 fillKey:(b.victory == "Axis" ? 'Attacker' : 'Defender'),
                 latitude: b.location.latitude,
                 longitude: b.location.longitude,
